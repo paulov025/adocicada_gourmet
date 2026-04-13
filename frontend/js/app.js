@@ -1,4 +1,7 @@
-const API = "http://localhost:3001/api";
+const API =
+  window.location.hostname === "localhost"
+    ? "http://localhost:3001/api"
+    : "/api";
 
 const Auth = {
   getToken: () => localStorage.getItem("adocicada_token"),
