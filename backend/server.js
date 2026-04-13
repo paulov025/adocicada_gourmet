@@ -7,6 +7,10 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`\n🎂 Adocicada.Gourmet rodando em http://localhost:${PORT}\n`);
+});
+
 // Criar pasta uploads se não existir
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
@@ -30,8 +34,4 @@ app.get("*", (req, res) => {
   if (!req.path.startsWith("/api")) {
     res.sendFile(path.join(__dirname, "../frontend/pages/index.html"));
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`\n🎂 Adocicada.Gourmet rodando em http://localhost:${PORT}\n`);
 });
