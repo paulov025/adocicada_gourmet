@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fazer Encomenda — Adocicada.Gourmet</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="navbar-logo"
+        >Adocicada<span>.Gourmet</span></a
+      >
+      <ul class="navbar-links">
+        <li><a href="index.html#sabores">Sabores</a></li>
+        <li><a href="index.html#recheios">Recheios</a></li>
+        <li><a href="index.html#galeria">Galeria</a></li>
+        <li><a href="pedido.html" class="active">Encomendar</a></li>
+      </ul>
+      <div class="navbar-actions" id="navbar-actions"></div>
+    </nav>
+
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2 class="modal-title">
+          Adocicada<span style="color: var(--gold)">.</span>
+        </h2>
+        <p class="modal-sub">Faça login para enviar seu pedido</p>
+        <div class="modal-tabs">
+          <button
+            class="modal-tab active"
+            data-tab="login"
+            onclick="switchTab('login')"
+          >
+            Entrar
+          </button>
+          <button
+            class="modal-tab"
+            data-tab="register"
+            onclick="switchTab('register')"
+          >
+            Cadastrar
+          </button>
+        </div>
+        <form id="form-login" class="auth-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input
+              id="login-email"
+              type="email"
+              class="form-control"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input
+              id="login-senha"
+              type="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            Entrar
+          </button>
+        </form>
+        <form
+          id="form-register"
+          class="auth-form hidden"
+          onsubmit="handleRegister(event)"
+        >
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input
+              id="reg-nome"
+              type="text"
+              class="form-control"
+              placeholder="Seu nome"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input
+              id="reg-email"
+              type="email"
+              class="form-control"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input
+              id="reg-telefone"
+              type="tel"
+              class="form-control"
+              placeholder="(85) 99999-9999"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input
+              id="reg-senha"
+              type="password"
+              class="form-control"
+              placeholder="Mínimo 6 caracteres"
+              required
+              minlength="6"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            Criar conta
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <main
+      style="padding-top: 72px; min-height: 100vh; background: var(--cream)"
+    >
+      <div class="container" style="padding-top: 60px; padding-bottom: 80px">
+        <div style="margin-bottom: 48px">
+          <span class="section-tag">Monte seu bolo</span>
+          <h1
+            style="
+              font-family: var(--font-serif);
+              font-size: 48px;
+              font-weight: 400;
+              color: var(--text-dark);
+              margin-top: 8px;
+            "
+          >
+            Fazer Encomenda
+          </h1>
+          <p style="color: var(--text-mid); margin-top: 8px">
+            Personalize cada detalhe do seu bolo dos sonhos.
+          </p>
+        </div>
+
+        <div class="order-stepper">
+          <button class="step-btn active" onclick="goStep(1)">
+            <span class="step-num">1</span> Sabor da massa
+          </button>
+          <button class="step-btn" onclick="goStep(2)">
+            <span class="step-num">2</span> Recheio
+          </button>
+          <button class="step-btn" onclick="goStep(3)">
+            <span class="step-num">3</span> Tamanho
+          </button>
+          <button class="step-btn" onclick="goStep(4)">
+            <span class="step-num">4</span> Detalhes finais
+          </button>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="order-step active" id="step-1">
+          <h2
+            style="
+              font-family: var(--font-serif);
+              font-size: 28px;
+              margin-bottom: 8px;
+              color: var(--text-dark);
+            "
+          >
+            Escolha a massa
+          </h2>
+          <p style="color: var(--text-light); margin-bottom: 24px">
+            Qual sabor de massa vai ser a base do seu bolo?
+          </p>
+          <div class="option-grid" id="opcoes-sabores">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando...
+            </div>
+          </div>
+          <div
+            style="display: flex; justify-content: flex-end; margin-top: 24px"
+          >
+            <button onclick="goStep(2)" class="btn btn-primary">
+              Próximo →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="order-step" id="step-2">
+          <h2
+            style="
+              font-family: var(--font-serif);
+              font-size: 28px;
+              margin-bottom: 8px;
+              color: var(--text-dark);
+            "
+          >
+            Escolha o recheio
+          </h2>
+          <p style="color: var(--text-light); margin-bottom: 24px">
+            O recheio é o coração do bolo!
+          </p>
+          <div class="option-grid" id="opcoes-recheios">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando...
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 24px;
+            "
+          >
+            <button onclick="goStep(1)" class="btn btn-outline">
+              ← Voltar
+            </button>
+            <button onclick="goStep(2)" class="btn btn-primary">
+              Próximo →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="order-step" id="step-3">
+          <h2
+            style="
+              font-family: var(--font-serif);
+              font-size: 28px;
+              margin-bottom: 8px;
+              color: var(--text-dark);
+            "
+          >
+            Escolha o tamanho
+          </h2>
+          <p style="color: var(--text-light); margin-bottom: 24px">
+            Quantas pessoas vão se deliciar?
+          </p>
+          <div class="option-grid" id="opcoes-tamanhos">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando...
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-top: 24px;
+            "
+          >
+            <button onclick="goStep(2)" class="btn btn-outline">
+              ← Voltar
+            </button>
+            <button onclick="goStep(4)" class="btn btn-primary">
+              Próximo →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="order-step" id="step-4">
+          <div id="form-detalhes">
+            <h2
+              style="
+                font-family: var(--font-serif);
+                font-size: 28px;
+                margin-bottom: 8px;
+                color: var(--text-dark);
+              "
+            >
+              Detalhes finais
+            </h2>
+            <p style="color: var(--text-light); margin-bottom: 32px">
+              Quase lá! Preencha as informações de entrega e personalizações.
+            </p>
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                max-width: 680px;
+              "
+            >
+              <div class="form-group" style="grid-column: 1/-1">
+                <label class="form-label">Data de entrega desejada *</label>
+                <input
+                  id="data-entrega"
+                  type="date"
+                  class="form-control"
+                  placeholder="Selecione a data"
+                  required
+                />
+              </div>
+              <div class="form-group" style="grid-column: 1/-1">
+                <label class="form-label">Endereço de entrega</label>
+                <input
+                  id="endereco"
+                  type="text"
+                  class="form-control"
+                  placeholder="Rua, número, bairro — Fortaleza, CE"
+                />
+              </div>
+              <div class="form-group" style="grid-column: 1/-1">
+                <label class="form-label">Personalizações e observações</label>
+                <textarea
+                  id="observacoes"
+                  class="form-control"
+                  placeholder="Ex: escrever 'Feliz Aniversário Ana', bolo tema floral, adicionar topo decorativo com flores..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div
+              style="
+                background: var(--white);
+                border-radius: var(--radius);
+                padding: 24px;
+                max-width: 680px;
+                margin-top: 8px;
+                border: 1.5px solid var(--cream-deep);
+              "
+            >
+              <h3
+                style="
+                  font-family: var(--font-serif);
+                  font-size: 20px;
+                  margin-bottom: 16px;
+                "
+              >
+                Resumo do pedido
+              </h3>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <span style="color: var(--text-mid); font-size: 15px"
+                  >Total estimado</span
+                >
+                <span
+                  id="resumo-preco"
+                  style="
+                    font-family: var(--font-serif);
+                    font-size: 28px;
+                    color: var(--rose);
+                  "
+                  >—</span
+                >
+              </div>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-light);
+                  margin-top: 8px;
+                "
+              >
+                * Personalizações especiais podem ter custo adicional, que será
+                informado pela confeiteira.
+              </p>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-top: 28px;
+                max-width: 680px;
+              "
+            >
+              <button onclick="goStep(3)" class="btn btn-outline">
+                ← Voltar
+              </button>
+              <button
+                onclick="enviarPedido(event)"
+                class="btn btn-primary btn-lg"
+              >
+                🎂 Enviar encomenda
+              </button>
+            </div>
+          </div>
+
+          <!-- Sucesso -->
+          <div
+            id="pedido-sucesso"
+            class="hidden"
+            style="text-align: center; padding: 60px 0"
+          >
+            <div style="font-size: 80px; margin-bottom: 24px">🎉</div>
+            <h2
+              style="
+                font-family: var(--font-serif);
+                font-size: 42px;
+                color: var(--rose-deep);
+                margin-bottom: 12px;
+              "
+            >
+              Pedido enviado!
+            </h2>
+            <p
+              style="
+                color: var(--text-mid);
+                font-size: 17px;
+                margin-bottom: 8px;
+              "
+            >
+              Sua encomenda foi registrada com sucesso.
+            </p>
+            <div
+              style="
+                background: var(--white);
+                border-radius: var(--radius);
+                padding: 24px;
+                max-width: 360px;
+                margin: 32px auto;
+                border: 2px solid var(--rose-light);
+              "
+            >
+              <p
+                style="
+                  color: var(--text-light);
+                  font-size: 13px;
+                  margin-bottom: 4px;
+                "
+              >
+                Código do pedido
+              </p>
+              <p
+                id="pedido-codigo"
+                style="
+                  font-family: var(--font-serif);
+                  font-size: 32px;
+                  color: var(--rose-deep);
+                  font-weight: 600;
+                "
+              ></p>
+              <p
+                style="
+                  color: var(--text-light);
+                  font-size: 13px;
+                  margin-top: 12px;
+                  margin-bottom: 4px;
+                "
+              >
+                Total
+              </p>
+              <p
+                id="pedido-preco"
+                style="
+                  font-family: var(--font-serif);
+                  font-size: 24px;
+                  color: var(--text-dark);
+                "
+              ></p>
+            </div>
+            <p
+              style="
+                color: var(--text-mid);
+                font-size: 15px;
+                margin-bottom: 32px;
+              "
+            >
+              A confeiteira entrará em contato para confirmar os detalhes.
+              Guarde seu código!
+            </p>
+            <a href="index.html" class="btn btn-primary btn-lg"
+              >Voltar ao início</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dataMin = new Date();
+        dataMin.setDate(dataMin.getDate() + 3);
+        const inp = document.getElementById("data-entrega");
+        if (inp) inp.min = dataMin.toISOString().split("T")[0];
+        carregarOpcoesStep2();
+      });
+
+      async function enviarPedido(e) {
+        e.preventDefault();
+        if (!Auth.isLogged()) {
+          openModal("login");
+          toast("Faça login para enviar seu pedido!", "error");
+          return;
+        }
+
+        const dataEntrega = document.getElementById("data-entrega").value;
+        const observacoes = document.getElementById("observacoes").value;
+        const endereco = document.getElementById("endereco").value;
+
+        if (!pedidoData.tamanho_id || !dataEntrega) {
+          toast("Escolha o tamanho e a data de entrega!", "error");
+          return;
+        }
+
+        try {
+          const result = await api("POST", "/pedidos", {
+            ...pedidoData,
+            data_entrega: dataEntrega,
+            observacoes,
+            endereco_entrega: endereco,
+          });
+          document.getElementById("pedido-codigo").textContent = result.codigo;
+          document.getElementById("pedido-preco").textContent =
+            `R$ ${parseFloat(result.preco_total).toFixed(2).replace(".", ",")}`;
+          document.getElementById("form-detalhes").style.display = "none";
+          document.getElementById("pedido-sucesso").classList.remove("hidden");
+          toast(`Pedido ${result.codigo} enviado! 🎉`, "success");
+        } catch (err) {
+          toast(err.message, "error");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel da Confeiteira — Adocicada.Gourmet</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="navbar-logo"
+        >Adocicada<span>.Gourmet</span></a
+      >
+      <div class="navbar-actions" id="navbar-actions"></div>
+    </nav>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          🎂 Adocicada<span>.Gourmet</span><br />
+          <small
+            style="font-size: 12px; opacity: 0.6; font-family: var(--font-sans)"
+            >Painel da Confeiteira</small
+          >
+        </div>
+        <ul class="sidebar-menu">
+          <li class="sidebar-item">
+            <a href="#" class="active" onclick="showSection('pedidos', event)"
+              ><span class="icon">📋</span> Pedidos</a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="#" onclick="showSection('galeria', event)"
+              ><span class="icon">🖼️</span> Galeria</a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="#" onclick="showSection('sabores', event)"
+              ><span class="icon">🌸</span> Sabores de Massa</a
+            >
+          </li>
+          <li class="sidebar-item">
+            <a href="#" onclick="showSection('recheios', event)"
+              ><span class="icon">🍫</span> Recheios</a
+            >
+          </li>
+          <li
+            class="sidebar-item"
+            style="
+              margin-top: 32px;
+              border-top: 1px solid rgba(255, 255, 255, 0.1);
+              padding-top: 16px;
+            "
+          >
+            <a href="index.html"><span class="icon">🏠</span> Ver site</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="#" onclick="logout()"><span class="icon">🚪</span> Sair</a>
+          </li>
+        </ul>
+      </aside>
+
+      <main class="dash-content">
+        <!-- PEDIDOS -->
+        <section id="section-pedidos">
+          <div class="dash-header">
+            <h1 class="dash-greeting" id="dash-greeting">Olá! 👋</h1>
+            <p class="dash-sub">
+              Aqui estão todos os pedidos da sua confeitaria.
+            </p>
+          </div>
+          <div class="metrics-grid" id="metricas"></div>
+          <div class="orders-table-wrap">
+            <div class="orders-table-head">
+              <span class="orders-table-title">Todos os Pedidos</span>
+              <button onclick="carregarPainel()" class="btn btn-outline btn-sm">
+                ↻ Atualizar
+              </button>
+            </div>
+            <div style="overflow-x: auto">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Bolo</th>
+                    <th>Entrega</th>
+                    <th>Observações</th>
+                    <th>Status</th>
+                    <th>Alterar</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-pedidos">
+                  <tr>
+                    <td
+                      colspan="8"
+                      style="
+                        text-align: center;
+                        padding: 40px;
+                        color: var(--text-light);
+                      "
+                    >
+                      Carregando pedidos...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- GALERIA -->
+        <section id="section-galeria" class="hidden">
+          <div class="dash-header">
+            <h1 class="dash-greeting">Galeria de Bolos</h1>
+            <p class="dash-sub">
+              Adicione fotos dos seus trabalhos para o portfólio do site.
+            </p>
+          </div>
+          <div
+            style="
+              background: var(--white);
+              border-radius: var(--radius);
+              padding: 32px;
+              box-shadow: var(--shadow-sm);
+              margin-bottom: 32px;
+            "
+          >
+            <h3
+              style="
+                font-family: var(--font-serif);
+                font-size: 22px;
+                margin-bottom: 20px;
+              "
+            >
+              Adicionar nova foto
+            </h3>
+            <form id="form-galeria" onsubmit="enviarGaleria(event)">
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px"
+              >
+                <div class="form-group">
+                  <label class="form-label">Título *</label>
+                  <input
+                    name="titulo"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Bolo Floral de Casamento"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Categoria</label>
+                  <input
+                    name="categoria"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Casamento, Aniversário..."
+                  />
+                </div>
+                <div class="form-group" style="grid-column: 1/-1">
+                  <label class="form-label">Descrição</label>
+                  <textarea
+                    name="descricao"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Descreva brevemente o bolo..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Imagem *</label>
+                  <input
+                    name="imagem"
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    title="Selecione uma imagem"
+                    required
+                  />
+                </div>
+                <div
+                  class="form-group"
+                  style="display: flex; align-items: flex-end"
+                >
+                  <label
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      cursor: pointer;
+                      font-size: 14px;
+                      color: var(--text-mid);
+                    "
+                  >
+                    <input name="destaque" type="checkbox" /> Marcar como
+                    destaque
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                📸 Adicionar à galeria
+              </button>
+            </form>
+          </div>
+          <div class="gallery-grid" id="galeria-dash">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando galeria...
+            </div>
+          </div>
+        </section>
+
+        <!-- SABORES -->
+        <section id="section-sabores" class="hidden">
+          <div class="dash-header">
+            <h1 class="dash-greeting">Sabores de Massa</h1>
+            <p class="dash-sub">
+              Gerencie os sabores disponíveis para seus clientes.
+            </p>
+          </div>
+          <div
+            style="
+              background: var(--white);
+              border-radius: var(--radius);
+              padding: 32px;
+              box-shadow: var(--shadow-sm);
+              margin-bottom: 32px;
+            "
+          >
+            <h3
+              style="
+                font-family: var(--font-serif);
+                font-size: 22px;
+                margin-bottom: 20px;
+              "
+            >
+              Adicionar sabor
+            </h3>
+            <form id="form-sabor" onsubmit="enviarSabor(event)">
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px"
+              >
+                <div class="form-group">
+                  <label class="form-label">Nome do sabor *</label>
+                  <input
+                    name="nome"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Pistache Gourmet"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Imagem</label>
+                  <input
+                    name="imagem"
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    title="Selecione uma imagem"
+                  />
+                </div>
+                <div class="form-group" style="grid-column: 1/-1">
+                  <label class="form-label">Descrição</label>
+                  <textarea
+                    name="descricao"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Descreva o sabor e ingredientes..."
+                  ></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                ✦ Adicionar sabor
+              </button>
+            </form>
+          </div>
+          <div class="catalog-grid" id="sabores-dash">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando...
+            </div>
+          </div>
+        </section>
+
+        <!-- RECHEIOS -->
+        <section id="section-recheios" class="hidden">
+          <div class="dash-header">
+            <h1 class="dash-greeting">Recheios</h1>
+            <p class="dash-sub">
+              Gerencie os recheios disponíveis para seus clientes.
+            </p>
+          </div>
+          <div
+            style="
+              background: var(--white);
+              border-radius: var(--radius);
+              padding: 32px;
+              box-shadow: var(--shadow-sm);
+              margin-bottom: 32px;
+            "
+          >
+            <h3
+              style="
+                font-family: var(--font-serif);
+                font-size: 22px;
+                margin-bottom: 20px;
+              "
+            >
+              Adicionar recheio
+            </h3>
+            <form id="form-recheio" onsubmit="enviarRecheio(event)">
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px"
+              >
+                <div class="form-group">
+                  <label class="form-label">Nome do recheio *</label>
+                  <input
+                    name="nome"
+                    type="text"
+                    class="form-control"
+                    placeholder="Ex: Caramelo com Flor de Sal"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Imagem</label>
+                  <input
+                    name="imagem"
+                    type="file"
+                    class="form-control"
+                    accept="image/*"
+                    title="Selecione uma imagem"
+                  />
+                </div>
+                <div class="form-group" style="grid-column: 1/-1">
+                  <label class="form-label">Descrição</label>
+                  <textarea
+                    name="descricao"
+                    class="form-control"
+                    rows="2"
+                    placeholder="Descreva os ingredientes do recheio..."
+                  ></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                ✦ Adicionar recheio
+              </button>
+            </form>
+          </div>
+          <div class="catalog-grid" id="recheios-dash">
+            <div
+              style="
+                text-align: center;
+                padding: 40px;
+                grid-column: 1/-1;
+                color: var(--text-light);
+              "
+            >
+              Carregando...
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+      const sections = ["pedidos", "galeria", "sabores", "recheios"];
+
+      function showSection(name, e) {
+        if (e) e.preventDefault();
+        sections.forEach((s) => {
+          document
+            .getElementById(`section-${s}`)
+            ?.classList.toggle("hidden", s !== name);
+        });
+        document
+          .querySelectorAll(".sidebar-item a")
+          .forEach((a) => a.classList.remove("active"));
+        if (e) e.target.closest("a")?.classList.add("active");
+        if (name === "galeria") carregarGaleriaDash();
+        if (name === "sabores") carregarSabores("sabores-dash");
+        if (name === "recheios") carregarRecheios("recheios-dash");
+      }
+
+      async function carregarGaleriaDash() {
+        try {
+          const galeria = await api("GET", "/catalogo/galeria");
+          const el = document.getElementById("galeria-dash");
+          if (!el) return;
+          if (!galeria.length) {
+            el.innerHTML =
+              '<p style="grid-column:1/-1;color:var(--text-light);text-align:center;padding:40px">Nenhuma imagem ainda. Adicione acima!</p>';
+            return;
+          }
+          el.innerHTML = galeria
+            .map(
+              (g) => `
+          <div class="gallery-item">
+            <img src="${g.imagem_url}" alt="${g.titulo}" onerror="this.style.height='160px';this.style.background='var(--cream-mid)'" />
+            <div class="gallery-item-overlay"><span class="gallery-item-title">${g.titulo}</span></div>
+          </div>
+        `,
+            )
+            .join("");
+        } catch (err) {
+          toast("Erro ao carregar galeria", "error");
+        }
+      }
+
+      async function enviarGaleria(e) {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        try {
+          await apiForm("POST", "/catalogo/galeria", fd);
+          toast("Imagem adicionada à galeria!", "success");
+          e.target.reset();
+          carregarGaleriaDash();
+        } catch (err) {
+          toast(err.message, "error");
+        }
+      }
+
+      async function enviarSabor(e) {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        try {
+          await apiForm("POST", "/catalogo/sabores-massa", fd);
+          toast("Sabor adicionado!", "success");
+          e.target.reset();
+          carregarSabores("sabores-dash");
+        } catch (err) {
+          toast(err.message, "error");
+        }
+      }
+
+      async function enviarRecheio(e) {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        try {
+          await apiForm("POST", "/catalogo/recheios", fd);
+          toast("Recheio adicionado!", "success");
+          e.target.reset();
+          carregarRecheios("recheios-dash");
+        } catch (err) {
+          toast(err.message, "error");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!Auth.isConfeiteiro()) {
+          window.location.href = "index.html";
+          return;
+        }
+        const user = Auth.getUser();
+        document.getElementById("dash-greeting").textContent =
+          `Olá, ${user?.nome?.split(" ")[0] || "Confeiteira"}! 👋`;
+        updateNavbar();
+        carregarPainel();
+      });
+    </script>
+  </body>
+</html>

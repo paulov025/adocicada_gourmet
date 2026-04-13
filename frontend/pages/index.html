@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adocicada.Gourmet — Confeitaria Artesanal</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="navbar-logo"
+        >Adocicada<span>.Gourmet</span></a
+      >
+      <ul class="navbar-links">
+        <li><a href="#sabores">Sabores</a></li>
+        <li><a href="#recheios">Recheios</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="pedido.html">Encomendar</a></li>
+      </ul>
+      <div class="navbar-actions" id="navbar-actions"></div>
+    </nav>
+
+    <div class="modal-overlay" id="auth-modal">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2 class="modal-title">
+          Adocicada<span style="color: var(--gold)">.</span>
+        </h2>
+        <p class="modal-sub">Entre na sua conta ou crie uma nova</p>
+        <div class="modal-tabs">
+          <button
+            class="modal-tab active"
+            data-tab="login"
+            onclick="switchTab('login')"
+          >
+            Entrar
+          </button>
+          <button
+            class="modal-tab"
+            data-tab="register"
+            onclick="switchTab('register')"
+          >
+            Cadastrar
+          </button>
+        </div>
+        <form id="form-login" class="auth-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input
+              id="login-email"
+              type="email"
+              class="form-control"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input
+              id="login-senha"
+              type="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            Entrar
+          </button>
+        </form>
+        <form
+          id="form-register"
+          class="auth-form hidden"
+          onsubmit="handleRegister(event)"
+        >
+          <div class="form-group">
+            <label class="form-label">Nome completo</label>
+            <input
+              id="reg-nome"
+              type="text"
+              class="form-control"
+              placeholder="Seu nome"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input
+              id="reg-email"
+              type="email"
+              class="form-control"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input
+              id="reg-telefone"
+              type="tel"
+              class="form-control"
+              placeholder="(85) 99999-9999"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Senha</label>
+            <input
+              id="reg-senha"
+              type="password"
+              class="form-control"
+              placeholder="Mínimo 6 caracteres"
+              required
+              minlength="6"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; justify-content: center"
+          >
+            Criar conta
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-tag">✦ Confeitaria Artesanal</div>
+            <h1 class="hero-title">
+              Cada bolo,<br />uma história<br /><em>doce</em>
+            </h1>
+            <p class="hero-desc">
+              Bolos gourmet feitos com amor, ingredientes selecionados e
+              personalização completa. Encomende o bolo dos seus sonhos com
+              apenas alguns cliques.
+            </p>
+            <div class="hero-actions">
+              <a href="pedido.html" class="btn btn-primary btn-lg"
+                >🎂 Fazer encomenda</a
+              >
+              <a href="#galeria" class="btn btn-outline btn-lg">Ver galeria</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-cake-ring">
+              <div class="hero-cake-emoji">🎂</div>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-icon">⭐</span>
+              <div>
+                <div class="hero-badge-text">5.0 Avaliação</div>
+                <div class="hero-badge-sub">+200 clientes felizes</div>
+              </div>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-icon">🌿</span>
+              <div>
+                <div class="hero-badge-text">100% Artesanal</div>
+                <div class="hero-badge-sub">Ingredientes frescos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats-strip">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <span class="stat-number">+500</span>
+          <div class="stat-label">Bolos entregues</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <div class="stat-label">Sabores de massa</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">6</span>
+          <div class="stat-label">Recheios exclusivos</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <div class="stat-label">Satisfação garantida</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="sabores">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Nossas massas</span>
+          <h2 class="section-title">Sabores de Massa</h2>
+          <p class="section-desc">
+            Cada massa é preparada artesanalmente no dia do seu pedido,
+            garantindo frescor e textura perfeita.
+          </p>
+        </div>
+        <div class="catalog-grid" id="sabores-grid">
+          <div
+            style="
+              text-align: center;
+              padding: 40px;
+              grid-column: 1/-1;
+              color: var(--text-light);
+            "
+          >
+            Carregando sabores...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="recheios">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">O coração do bolo</span>
+          <h2 class="section-title">Nossos Recheios</h2>
+          <p class="section-desc">
+            Recheios cremosos e encorpados que tornam cada mordida uma
+            experiência inesquecível.
+          </p>
+        </div>
+        <div class="catalog-grid" id="recheios-grid">
+          <div
+            style="
+              text-align: center;
+              padding: 40px;
+              grid-column: 1/-1;
+              color: var(--text-light);
+            "
+          >
+            Carregando recheios...
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Portfólio</span>
+          <h2 class="section-title">Nossa Galeria</h2>
+          <p class="section-desc">
+            Cada criação é única. Inspire-se nos nossos trabalhos e encomende o
+            seu.
+          </p>
+        </div>
+        <div class="gallery-grid" id="galeria-grid">
+          <div
+            class="gallery-item"
+            style="
+              height: 220px;
+              background: var(--rose-light);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🎂
+          </div>
+          <div
+            class="gallery-item"
+            style="
+              height: 300px;
+              background: var(--gold-light);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🍰
+          </div>
+          <div
+            class="gallery-item"
+            style="
+              height: 200px;
+              background: var(--cream-mid);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🧁
+          </div>
+          <div
+            class="gallery-item"
+            style="
+              height: 260px;
+              background: var(--rose-light);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🎂
+          </div>
+          <div
+            class="gallery-item"
+            style="
+              height: 200px;
+              background: var(--gold-light);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🍫
+          </div>
+          <div
+            class="gallery-item"
+            style="
+              height: 280px;
+              background: var(--cream-mid);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 64px;
+            "
+          >
+            🌸
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 48px">
+          <a href="pedido.html" class="btn btn-primary btn-lg"
+            >Encomende o seu agora</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section
+      style="background: var(--rose-deep); padding: 80px 0; text-align: center"
+    >
+      <div class="container">
+        <h2
+          style="
+            font-family: var(--font-serif);
+            font-size: 48px;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 16px;
+          "
+        >
+          Pronta para encantar?
+        </h2>
+        <p
+          style="
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 17px;
+            margin-bottom: 36px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          Faça sua encomenda com antecedência e garanta o bolo perfeito para o
+          seu momento especial.
+        </p>
+        <a href="pedido.html" class="btn btn-gold btn-lg"
+          >🎂 Fazer minha encomenda</a
+        >
+      </div>
+    </section>
+
+    <footer
+      style="
+        background: var(--text-dark);
+        color: rgba(255, 255, 255, 0.5);
+        padding: 32px 0;
+        text-align: center;
+        font-size: 13px;
+      "
+    >
+      <div class="container">
+        <p
+          style="
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--rose-light);
+            margin-bottom: 8px;
+          "
+        >
+          Adocicada.Gourmet
+        </p>
+        <p>Confeitaria artesanal com amor ✦ Fortaleza, CE</p>
+      </div>
+    </footer>
+
+    <script src="../js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        carregarSabores("sabores-grid");
+        carregarRecheios("recheios-grid");
+      });
+    </script>
+  </body>
+</html>
