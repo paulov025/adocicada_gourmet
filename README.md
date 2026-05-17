@@ -190,14 +190,14 @@ POST /api/catalogo/galeria         — Adicionar foto
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença de pauov025. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
 
-<div align="center">
+
 
 Feito com 💕 e muito açúcar para a **Adocicada.Gourmet**
 
 *Confeitaria artesanal com amor ✦ Fortaleza, CE*
 
-</div>
+esse saite foi feito com ajuda de IA
