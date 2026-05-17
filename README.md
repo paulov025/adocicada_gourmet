@@ -175,18 +175,6 @@ GET  /api/catalogo/recheios        — Listar recheios
 GET  /api/catalogo/tamanhos        — Listar tamanhos
 GET  /api/catalogo/galeria         — Listar galeria
 POST /api/catalogo/galeria         — Adicionar foto
-```
-
----
-
-## 🔐 Credenciais Padrão
-
-> ⚠️ **Importante:** Altere as credenciais após o primeiro acesso!
-
-| Perfil | Email | Senha |
-|--------|-------|-------|
-| Confeiteira | vitoria@gmail.com | adocicada123 |
-
 ---
 
 ## 🗺️ Roadmap
